@@ -11,6 +11,8 @@ import org.pac4j.play.http.DefaultHttpActionAdapter
 import org.pac4j.play.store.{ PlayCacheStore, PlaySessionStore }
 import play.api.{ Configuration, Environment }
 
+import authorizers.EmailAuthorizer
+
 class SecurityModule(environment: Environment, configuration: Configuration) extends AbstractModule {
 
   override def configure(): Unit = {
@@ -26,6 +28,7 @@ class SecurityModule(environment: Environment, configuration: Configuration) ext
     val clients = new Clients("http://localhost:9000/callback", oidcClient)
 
     val config = new Config(clients)
+    config.addAuthorizer("email", new EmailAuthorizer())
     config.setHttpActionAdapter(new DefaultHttpActionAdapter())
     bind(classOf[Config]).toInstance(config)
 
@@ -33,7 +36,6 @@ class SecurityModule(environment: Environment, configuration: Configuration) ext
 
     // callback
     val callbackController = new CallbackController()
-    callbackController.setDefaultUrl("/")
     bind(classOf[CallbackController]).toInstance(callbackController)
 
     // Logout controller
