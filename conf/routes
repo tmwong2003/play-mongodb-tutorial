@@ -1,3 +1,10 @@
+# Authentication
+GET      /login            controllers.Application.login
+GET      /callback         @org.pac4j.play.CallbackController.callback()
+
+GET      /logout           @org.pac4j.play.ApplicationLogoutController.logout()
+GET      /logout-done      controllers.Application.logout()
+
 # Home page
 GET      /                 controllers.Application.index
 GET      /cleanup          controllers.Application.cleanup
