@@ -1,11 +1,15 @@
 package authorizers
 
+import scala.io.Source
+
 import org.pac4j.core.authorization.authorizer.ProfileAuthorizer
 import org.pac4j.core.context.WebContext
 import org.pac4j.core.profile.CommonProfile
 import play.api.Logger
 
 class EmailAuthorizer extends ProfileAuthorizer[CommonProfile] {
+
+  private val authorizedEmails = Source.fromFile("email.txt").getLines.toList
 
   def isAuthorized(context: WebContext, profiles: java.util.List[CommonProfile]): Boolean = {
     return isAnyAuthorized(context, profiles)
@@ -17,7 +21,7 @@ class EmailAuthorizer extends ProfileAuthorizer[CommonProfile] {
       false
     } else {
       Logger.warn("Got " + profile.getEmail() + " user profile during authorizaton")
-      profile.getEmail() == "tmw@tmwong.org"
+      authorizedEmails.find(e => e == profile.getEmail()) != None
     }
   }
 }
