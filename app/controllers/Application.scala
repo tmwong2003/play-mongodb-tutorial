@@ -42,17 +42,17 @@ class Application @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Con
     result.map { res =>
       val numberOfDocs: Int = res.value
       if (numberOfDocs < 1) {
-        jsonCollection.bulkInsert(posts.toStream, ordered = true).foreach(i => Logger.info("Record added."))
+        jsonCollection.bulkInsert(posts.toStream, ordered = true).foreach(i => Logger.info("Inserted records into table"))
       }
     }
 
-    Ok("Your database is ready.")
+    Ok("Initialized database table")
   }
 
   def cleanup = Action {
     jsonCollection.drop().onComplete {
-      case _ => Logger.info("Database collection dropped")
+      case _ => Logger.info("Dropped table")
     }
-    Ok("Your database is clean.")
+    Ok("Dropped database table")
   }
 }

@@ -12,6 +12,8 @@ import org.pac4j.play.store.PlaySessionStore
 import play.api.mvc.{ Action, Controller, RequestHeader }
 import play.libs.concurrent.HttpExecutionContext
 
+import views.html._
+
 class Authentication @Inject() (val config: Config, val playSessionStore: PlaySessionStore, override val ec: HttpExecutionContext) extends Controller
     with Security[CommonProfile] {
 
@@ -22,7 +24,19 @@ class Authentication @Inject() (val config: Config, val playSessionStore: PlaySe
     asScalaBuffer(profiles).toList
   }
 
-  def login() = Secure("OidcClient", "isAuthenticated") { profiles =>
+  def login() = Secure("AnonymousClient") { profiles =>
+    Action { request =>
+      Ok(views.html.index(profiles))
+    }
+  }
+
+  def loginOidc() = Secure("OidcClient", "isAuthenticated") { profiles =>
+    Action { implicit request =>
+      Ok("Logged in: " + profiles)
+    }
+  }
+
+  def loginSAML2() = Secure("SAML2Client", "isAuthenticated") { profiles =>
     Action { implicit request =>
       Ok("Logged in: " + profiles)
     }

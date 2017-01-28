@@ -20,7 +20,7 @@ class EmailAuthorizer extends ProfileAuthorizer[CommonProfile] {
       Logger.warn("Got null user profile during profile authorization")
       false
     } else {
-      Logger.warn("Got " + profile.getEmail() + " user profile during authorizaton")
+      Logger.info("Got " + profile.getEmail() + " user profile during authorization")
       authorizedEmails.find(e => e == profile.getEmail()) != None
     }
   }
