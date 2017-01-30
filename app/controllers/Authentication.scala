@@ -24,24 +24,24 @@ class Authentication @Inject() (val config: Config, val playSessionStore: PlaySe
     asScalaBuffer(profiles).toList
   }
 
-  def login() = Secure("AnonymousClient") { profiles =>
+  def login = Secure("AnonymousClient") { profiles =>
     Action { request =>
-      Ok(views.html.index(profiles))
+      Ok(views.html.login())
     }
   }
 
-  def loginOidc() = Secure("OidcClient", "isAuthenticated") { profiles =>
+  def loginOidc = Secure("OidcClient", "isAuthenticated") { _ =>
     Action { implicit request =>
-      Ok("Logged in: " + profiles)
+      Redirect(routes.Application.index)
     }
   }
 
-  def loginSAML2() = Secure("SAML2Client", "isAuthenticated") { profiles =>
+  def loginSAML2 = Secure("SAML2Client", "isAuthenticated") { _ =>
     Action { implicit request =>
-      Ok("Logged in: " + profiles)
+      Redirect(routes.Application.index)
     }
   }
 
-  def logout() = Action { implicit request => Ok("Logged out")
+  def logout = Action { implicit request => Redirect(routes.Application.index)
   }
 }

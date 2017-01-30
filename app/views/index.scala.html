@@ -1,10 +1,9 @@
-@(profiles: List[org.pac4j.core.profile.CommonProfile])
-<h1>Login</h1>
-<ul>
-	<li>
-		<a href="/loginSAML2">Log in with OKTA</a>
-	</li>
-	<li>
-		<a href="/loginOidc">Log in with Google+</a>
-	</li>
-</ul>
+@(profile: org.pac4j.core.profile.CommonProfile)
+<h1>Welcome to the Play/pac4j/MongoDB tutorial</h1>
+
+<p>
+	Hello, @profile.getFirstName.
+</p>
+<p>
+	@profile
+</p>
