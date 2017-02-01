@@ -10,7 +10,6 @@ GET      /callback         @org.pac4j.play.CallbackController.callback
 POST     /callback         @org.pac4j.play.CallbackController.callback
 
 GET      /logout           @org.pac4j.play.ApplicationLogoutController.logout
-GET      /logout-done      controllers.Authentication.logout
 
 # Widgets
 
@@ -21,3 +20,8 @@ GET      /api/widget/:id   controllers.Widgets.read(id: String)
 POST     /api/widget       controllers.Widgets.insert
 DELETE   /api/widget/:id   controllers.Widgets.delete(id: String)
 PATCH    /api/widget/:id   controllers.Widgets.update(id: String)
+
+# Proxy
+
+GET      /*path            controllers.Proxy.proxy(path)
+POST     /*path            controllers.Proxy.proxy(path)

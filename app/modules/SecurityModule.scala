@@ -52,7 +52,7 @@ class SecurityModule(environment: Environment, configuration: Configuration) ext
 
     // Logout controller
     val logoutController = new ApplicationLogoutController()
-    logoutController.setDefaultUrl("/logout-done")
+    logoutController.setDefaultUrl("http://localhost:9000")
     bind(classOf[ApplicationLogoutController]).toInstance(logoutController)
   }
 }

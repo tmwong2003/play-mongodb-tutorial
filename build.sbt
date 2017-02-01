@@ -10,6 +10,7 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
+  "commons-validator" % "commons-validator" % "1.5.1",
   "org.pac4j" % "play-pac4j" % "2.6.1",
   "org.pac4j" % "pac4j-oidc" % "1.9.5",
   "org.pac4j" % "pac4j-saml" % "1.9.5",
